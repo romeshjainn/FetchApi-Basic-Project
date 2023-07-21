@@ -6,10 +6,13 @@ api
   .then(function (data) {
     display(data);
   });
+
 let body = document.body;
 let main = document.createElement("main");
 body.appendChild(main);
 main.setAttribute("id", "cardContainer");
+
+
 function display(data) {
   const main = document.getElementById("cardContainer");
 
@@ -79,18 +82,17 @@ function handleSearch() {
   const query = searchInput.value.trim().toLowerCase();
   const cards = document.querySelectorAll(".cards");
 
-  cards.forEach((card) => {
+  for (let i = 0; i < cards.length; i++) {
+    const card = cards[i];
     const title = card.querySelector(".title").innerText.toLowerCase();
-    const description = card
-      .querySelector(".description")
-      .innerText.toLowerCase();
+    const description = card.querySelector(".description").innerText.toLowerCase();
 
     if (title.includes(query) || description.includes(query)) {
       card.style.display = "block";
     } else {
       card.style.display = "none";
     }
-  });
+  }
 }
 
 let header = document.createElement("header");
