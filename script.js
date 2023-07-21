@@ -54,6 +54,7 @@ input.style.backgroundColor = "transparent";
 input.style.border = "none";
 input.style.padding = "0px 5%";
 input.style.width = "60%";
+input.setAttribute("id", "searchInput");
 
 let button = document.createElement("button");
 inputBox.appendChild(button);
@@ -69,6 +70,10 @@ main.style.width = "100%";
 main.style.display = "flex";
 main.style.flexWrap = "wrap";
 main.style.gap = "2px";
+main.style.display = "flex";
+// main.style.flexDirection = "column";
+main.style.justifyContent = "center";
+main.style.gap = "1.5rem";
 //   main.style.border = "2px solid black";
 body.appendChild(main);
 
@@ -79,13 +84,10 @@ function display(data) {
     let cards = document.createElement("div");
     main.appendChild(cards);
     cards.style.backgroundColor = "transparent";
-    cards.style.width = "calc(50% - 1px)";
-    cards.style.aspectRatio = ".8";
+    cards.style.width = "calc(20% - 1px)";
+    cards.style.aspectRatio = ".6";
     cards.classList.add("cards");
-    //   cards.style.display = "flex";
-    //   cards.style.flexDirection = "column";
-    //   cards.style.justifyContent = "center";
-    //   cards.style.alignItems = "center";
+    cards.style.border = "2px solid red"
 
     let image = document.createElement("img");
     cards.appendChild(image);
@@ -172,15 +174,5 @@ searchButton.addEventListener("click", () => {
     main.innerHTML = ""; // Clear search results if the input is empty
   } else {
     displaySearchResults(data, query);
-  }
-});
-
-// Event listener for search input changes (optional, in case you want the results to update dynamically as the user types)
-const searchInput = document.getElementById("searchInput");
-searchInput.addEventListener("input", () => {
-  const query = searchInput.value.trim();
-  if (query === "") {
-    const main = document.querySelector("main"); // Get the main container
-    main.innerHTML = ""; // Clear search results if the input is empty
   }
 });
