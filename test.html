@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Add any meta tags, title, or other head elements here if needed -->
+  <title>Fakazon</title>
 </head>
 <body>
-  <!-- The main container for displaying product cards -->
   <main id="cardContainer"></main>
 
   <!-- Scripts -->
@@ -21,16 +20,16 @@
 
       main.style.display = "flex";
       main.style.flexWrap = "wrap";
-      main.style.border = "2px solid red"; // Adding 2px red border to the main container
+      main.style.border = "2px solid red"; 
 
       for (let i = 0; i < data.length; i++) {
         let cards = document.createElement("div");
         main.appendChild(cards);
         cards.style.backgroundColor = "transparent";
-        cards.style.width = "calc(30% - 1px)"; // Each row should have three cards
+        cards.style.width = "calc(30% - 1px)"; 
         cards.style.aspectRatio = ".6";
         cards.classList.add("cards");
-        cards.style.border = "2px solid red"; // Adding 2px red border to each card
+        cards.style.border = "2px solid red"; 
 
         let image = document.createElement("img");
         cards.appendChild(image);
@@ -126,19 +125,13 @@
     searchInput.style.width = "100%";
 
     let button = document.createElement("button");
-    // button.setAttribute("id", "searchButton");
-    // button.innerText = "Search";
-    // button.style.backgroundColor = "grey";
-    // button.style.width = "40%";
 
     inputBox.appendChild(searchInput);
-    // inputBox.appendChild(button);
 
     header.appendChild(inputBox);
 
     document.body.insertBefore(header, document.body.firstChild);
 
-    button.addEventListener("click", handleSearch);
     searchInput.addEventListener("input", handleSearch);
   </script>
 </body>
