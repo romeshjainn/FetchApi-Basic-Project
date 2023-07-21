@@ -1,178 +1,127 @@
-// Retrieving data from the api
-let api = fetch("https://fakestoreapi.com/products");
-api
-  .then(function (unparedData) {
-    return unparedData.json();
-  })
-  .then(function (data) {
-    console.log(data);
-    display(data);
-  });
 
-let universal = document.querySelectorAll("*");
-for (let i = 0; i < universal.length; i++) {
-  universal[i].style.margin = "0";
-  universal[i].style.padding = "0";
-  universal[i].style.boxSizing = "border-box";
-}
+    let api = fetch("https://fakestoreapi.com/products");
+    api.then(function (unparsedData) {
+      return unparsedData.json();
+    }).then(function (data) {
+      display(data);
+    });
 
-// styling body
-let body = document.body;
-body.style.backgroundColor = "grey";
-body.style.padding = "2rem";
-body.style.backgroundImage =
-  "url(https://images.unsplash.com/photo-1620055374842-145f66ec4652?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fGFlc3RoZXRpY3xlbnwwfDF8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60)";
-body.style.width = "100%";
-body.style.fontFamily = "Lumanosimo";
-body.style.overflowX = "hidden";
+    function display(data) {
+      const main = document.getElementById("cardContainer");
 
-// styling header
-let header = document.createElement("header");
-body.style.backgroundColor = "transparent";
-body.style.color = "white";
-body.appendChild(header);
-header.style.backgroundColor = "transparent";
-header.style.height = "100px";
-header.style.marginBottom = "1.2rem";
-header.style.border = "2px solid black";
-header.style.borderRadius = "2rem 2rem 0px 0px";
-header.style.width = "99.5%";
-header.style.display = "grid";
-header.style.placeItems = "center";
-let inputBox = document.createElement("div");
-header.appendChild(inputBox);
-inputBox.style.height = "40%";
-inputBox.style.width = "70%";
-inputBox.style.backgroundColor = "transparent";
-inputBox.style.border = "2px solid ";
-inputBox.style.display = "flex";
+      main.style.display = "flex";
+      main.style.flexWrap = "wrap";
+      main.style.border = "2px solid red"; 
 
-let input = document.createElement("input");
-inputBox.appendChild(input);
-input.placeholder = "Search Items";
-input.style.backgroundColor = "transparent";
-input.style.border = "none";
-input.style.padding = "0px 5%";
-input.style.width = "60%";
-input.setAttribute("id", "searchInput");
+      for (let i = 0; i < data.length; i++) {
+        let cards = document.createElement("div");
+        main.appendChild(cards);
+        cards.style.backgroundColor = "transparent";
+        cards.style.width = "calc(30% - 1px)"; 
+        cards.style.aspectRatio = ".6";
+        cards.classList.add("cards");
+        cards.style.border = "2px solid red"; 
 
-let button = document.createElement("button");
-inputBox.appendChild(button);
-button.innerText = "Search";
-button.style.backgroundColor = "grey";
+        let image = document.createElement("img");
+        cards.appendChild(image);
+        image.style.backgroundColor = "transparent";
+        image.style.display = "grid";
+        image.style.border = "2px solid";
+        image.style.placeItems = "center";
+        image.style.height = "60%";
+        image.style.width = "99%";
+        image.style.padding = "";
+        image.src = data[i].image;
 
-button.style.width = "40%";
+        let title = document.createElement("div");
+        cards.appendChild(title);
+        title.classList.add("title");
+        title.style.padding = "5px";
+        title.style.backgroundColor = "transparent";
+        title.style.overflow = "hidden";
+        title.style.textOverflow = "ellipsis";
+        title.style.whiteSpace = "nowrap";
+        title.style.whiteSpace = "nowrap";
+        title.style.border = "2px solid black";
+        title.style.height = "10%";
+        title.innerText = data[i].title;
 
-// styling main
-let main = document.createElement("main");
-main.style.backgroundColor = "transparent";
-main.style.width = "100%";
-main.style.display = "flex";
-main.style.flexWrap = "wrap";
-main.style.gap = "2px";
-main.style.display = "flex";
-// main.style.flexDirection = "column";
-main.style.justifyContent = "center";
-main.style.gap = "1.5rem";
-//   main.style.border = "2px solid black";
-body.appendChild(main);
+        let price = document.createElement("div");
+        cards.appendChild(price);
+        price.style.height = "10%";
+        price.style.backgroundColor = "transparent";
+        price.innerText = data[i].price;
+        price.style.border = "2px solid black";
+        price.style.borderTop = "none";
 
-//   styling cards
+        let description = document.createElement("div");
+        cards.appendChild(description);
+        description.classList.add("description");
+        description.style.height = "20%";
+        description.style.padding = "5px";
+        description.style.backgroundColor = "transparent";
+        description.style.overflow = "hidden";
+        description.style.border = "2px solid black";
+        description.style.borderTop = "none";
+        description.style.textOverflow = "ellipsis";
+        description.style.fontSize = "12px";
+        description.innerText = data[i].description;
 
-function display(data) {
-  for (let i = 0; i < data.length; i++) {
-    let cards = document.createElement("div");
-    main.appendChild(cards);
-    cards.style.backgroundColor = "transparent";
-    cards.style.width = "calc(20% - 1px)";
-    cards.style.aspectRatio = ".6";
-    cards.classList.add("cards");
-    cards.style.border = "2px solid red"
+        console.log(data[i].price);
+      }
+    }
 
-    let image = document.createElement("img");
-    cards.appendChild(image);
-    image.style.backgroundColor = "transparent";
-    image.style.display = "grid";
-    image.style.border = "2px solid ";
-    image.style.placeItems = "center";
-    image.style.height = "60%";
-    //   image.style.mixBlendMode = "screen"
-    image.style.width = "99%";
-    image.style.padding = "";
+    function handleSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      const cards = document.querySelectorAll(".cards");
 
-    let imageApi = data[i].image;
-    image.src = imageApi;
+      cards.forEach((card) => {
+        const title = card.querySelector(".title").innerText.toLowerCase();
+        const description = card.querySelector(".description").innerText.toLowerCase();
 
-    let title = document.createElement("div");
-    let titleApi = data[i].title;
-    cards.appendChild(title);
-    title.style.padding = "5px";
-    title.style.backgroundColor = "transparent";
-    title.style.overflow = "hidden";
-    title.style.textOverflow = "ellipsis";
-    title.style.whiteSpace = "nowrap";
-    title.style.whiteSpace = "nowrap";
-    title.style.border = "2px solid black";
+        if (title.includes(query) || description.includes(query)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
 
-    title.style.height = "10%";
-    title.innerText = titleApi;
+    let header = document.createElement("header");
+    header.style.backgroundColor = "transparent";
+    header.style.color = "white";
+    header.style.height = "100px";
+    header.style.marginBottom = "1.2rem";
+    header.style.border = "2px solid black";
+    header.style.borderRadius = "2rem 2rem 0px 0px";
+    header.style.width = "99.5%";
+    header.style.display = "grid";
+    header.style.placeItems = "center";
+    header.style.position = "sticky";
+    header.style.top = "0";
 
-    let price = document.createElement("div");
-    let priceApi = data[i].price;
-    cards.appendChild(price);
-    price.style.height = "10%";
-    price.style.backgroundColor = "transparent";
-    price.innerText = priceApi;
-    price.style.border = "2px solid black";
-    price.style.borderTop = "none";
+    let inputBox = document.createElement("div");
+    inputBox.style.height = "40%";
+    inputBox.style.width = "70%";
+    inputBox.style.backgroundColor = "transparent";
+    inputBox.style.border = "2px solid";
+    inputBox.style.display = "flex";
 
-    let description = document.createElement("div");
-    cards.appendChild(description);
-    description.style.height = "20%";
-    description.style.padding = "5px";
-    description.style.backgroundColor = "transparent";
-    description.style.overflow = "hidden";
-    description.style.border = "2px solid black";
-    description.style.borderTop = "none";
+    let searchInput = document.createElement("input");
+    searchInput.setAttribute("id", "searchInput");
+    searchInput.placeholder = "Search Items";
+    searchInput.style.backgroundColor = "transparent";
+    searchInput.style.border = "2px solid";
+    searchInput.style.padding = "0px 5%";
+    searchInput.style.width = "100%";
 
-    description.style.textOverflow = "ellipsis";
-    description.style.fontSize = "12px";
-    let descriptionApi = data[i].description;
-    description.innerText = descriptionApi;
+    let button = document.createElement("button");
 
-    //   console.log(imageApi);
-    console.log(priceApi);
-    //   image.innerText = price;
-  }
-}
+    inputBox.appendChild(searchInput);
 
-// search
-function displaySearchResults(data, query) {
-  const filteredData = data.filter((item) =>
-    item.title.toLowerCase().includes(query.toLowerCase())
-  );
+    header.appendChild(inputBox);
 
-  const main = document.querySelector("main"); // Get the main container
-  main.innerHTML = ""; // Clear previous cards
+    document.body.insertBefore(header, document.body.firstChild);
 
-  if (filteredData.length === 0) {
-    const noResultsMessage = document.createElement("div");
-    noResultsMessage.textContent = "No matching results found.";
-    main.appendChild(noResultsMessage);
-    return;
-  }
-
-  display(filteredData); // Call the existing display function to show the filtered cards
-}
-
-// Event listener for search button click
-const searchButton = document.getElementById("searchButton");
-searchButton.addEventListener("click", () => {
-  const query = searchInput.value.trim();
-  if (query === "") {
-    const main = document.querySelector("main"); // Get the main container
-    main.innerHTML = ""; // Clear search results if the input is empty
-  } else {
-    displaySearchResults(data, query);
-  }
-});
+    searchInput.addEventListener("input", handleSearch);
+  
