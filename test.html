@@ -9,7 +9,6 @@
 
   <!-- Scripts -->
   <script>
-    // Fetch data from the API and display the cards
     let api = fetch("https://fakestoreapi.com/products");
     api.then(function (unparsedData) {
       return unparsedData.json();
@@ -17,21 +16,22 @@
       display(data);
     });
 
-    // Function to display product cards
     function display(data) {
-      const main = document.getElementById("cardContainer"); // Get the main container
-      main.innerHTML = ""; // Clear previous cards
+      const main = document.getElementById("cardContainer");
+
+      main.style.display = "flex";
+      main.style.flexWrap = "wrap";
+      main.style.border = "2px solid red"; // Adding 2px red border to the main container
 
       for (let i = 0; i < data.length; i++) {
         let cards = document.createElement("div");
         main.appendChild(cards);
         cards.style.backgroundColor = "transparent";
-        cards.style.width = "calc(20% - 1px)";
+        cards.style.width = "calc(30% - 1px)"; // Each row should have three cards
         cards.style.aspectRatio = ".6";
         cards.classList.add("cards");
-        cards.style.border = "2px solid red";
+        cards.style.border = "2px solid red"; // Adding 2px red border to each card
 
-        // Create image element
         let image = document.createElement("img");
         cards.appendChild(image);
         image.style.backgroundColor = "transparent";
@@ -41,9 +41,8 @@
         image.style.height = "60%";
         image.style.width = "99%";
         image.style.padding = "";
-        image.src = data[i].image; // Set image source from data
+        image.src = data[i].image;
 
-        // Create title element
         let title = document.createElement("div");
         cards.appendChild(title);
         title.classList.add("title");
@@ -55,18 +54,16 @@
         title.style.whiteSpace = "nowrap";
         title.style.border = "2px solid black";
         title.style.height = "10%";
-        title.innerText = data[i].title; // Set title from data
+        title.innerText = data[i].title;
 
-        // Create price element
         let price = document.createElement("div");
         cards.appendChild(price);
         price.style.height = "10%";
         price.style.backgroundColor = "transparent";
-        price.innerText = data[i].price; // Set price from data
+        price.innerText = data[i].price;
         price.style.border = "2px solid black";
         price.style.borderTop = "none";
 
-        // Create description element
         let description = document.createElement("div");
         cards.appendChild(description);
         description.classList.add("description");
@@ -78,13 +75,12 @@
         description.style.borderTop = "none";
         description.style.textOverflow = "ellipsis";
         description.style.fontSize = "12px";
-        description.innerText = data[i].description; // Set description from data
+        description.innerText = data[i].description;
 
         console.log(data[i].price);
       }
     }
 
-    // Function to handle the search functionality
     function handleSearch() {
       const query = searchInput.value.trim().toLowerCase();
       const cards = document.querySelectorAll(".cards");
@@ -93,19 +89,14 @@
         const title = card.querySelector(".title").innerText.toLowerCase();
         const description = card.querySelector(".description").innerText.toLowerCase();
 
-        // Check if the query is present in the title or description
         if (title.includes(query) || description.includes(query)) {
-          card.style.display = "block"; // Show the card
+          card.style.display = "block";
         } else {
-          card.style.display = "none"; // Hide the card
+          card.style.display = "none";
         }
       });
     }
 
-    // Fetch the main container
-    let main = document.getElementById("cardContainer");
-
-    // Create header element
     let header = document.createElement("header");
     header.style.backgroundColor = "transparent";
     header.style.color = "white";
@@ -116,42 +107,37 @@
     header.style.width = "99.5%";
     header.style.display = "grid";
     header.style.placeItems = "center";
+    header.style.position = "sticky";
+    header.style.top = "0";
 
-    // Create div element for input and button
     let inputBox = document.createElement("div");
     inputBox.style.height = "40%";
     inputBox.style.width = "70%";
     inputBox.style.backgroundColor = "transparent";
-    inputBox.style.border = "2px solid ";
+    inputBox.style.border = "2px solid";
     inputBox.style.display = "flex";
 
-    // Create input element for search
     let searchInput = document.createElement("input");
     searchInput.setAttribute("id", "searchInput");
     searchInput.placeholder = "Search Items";
     searchInput.style.backgroundColor = "transparent";
-    searchInput.style.border = "none";
+    searchInput.style.border = "2px solid";
     searchInput.style.padding = "0px 5%";
-    searchInput.style.width = "60%";
+    searchInput.style.width = "100%";
 
-    // Create button element for search
     let button = document.createElement("button");
-    button.setAttribute("id", "searchButton");
-    button.innerText = "Search";
-    button.style.backgroundColor = "grey";
-    button.style.width = "40%";
+    // button.setAttribute("id", "searchButton");
+    // button.innerText = "Search";
+    // button.style.backgroundColor = "grey";
+    // button.style.width = "40%";
 
-    // Append input and button to the header
     inputBox.appendChild(searchInput);
-    inputBox.appendChild(button);
+    // inputBox.appendChild(button);
 
-    // Append the input box to the header
     header.appendChild(inputBox);
 
-    // Append the header to the body
-    document.body.appendChild(header);
+    document.body.insertBefore(header, document.body.firstChild);
 
-    // Add event listeners for search button click and input changes
     button.addEventListener("click", handleSearch);
     searchInput.addEventListener("input", handleSearch);
   </script>
