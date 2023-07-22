@@ -17,7 +17,9 @@ function display(data) {
   const main = document.getElementById("cardContainer");
 
   main.style.display = "flex";
+  main.style.justifyContent = "center";
   main.style.flexWrap = "wrap";
+  main.style.gap =
   main.style.border = "2px solid red";
 
   for (let i = 0; i < data.length; i++) {
@@ -27,7 +29,7 @@ function display(data) {
     cards.style.width = "calc(30% - 1px)";
     cards.style.aspectRatio = ".6";
     cards.classList.add("cards");
-    cards.style.border = "2px solid red";
+    // cards.style.border = "2px solid red";
 
     let image = document.createElement("img");
     cards.appendChild(image);
